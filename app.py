@@ -4,9 +4,7 @@ import matplotlib.pyplot as plt
 
 from predict import predict_attacks
 
-# -------------------------------
-# Page Configuration
-# -------------------------------
+
 st.set_page_config(
     page_title="Cyber Attack Detection System",
     page_icon="🛡️",
@@ -20,17 +18,11 @@ Upload a CSV file containing network traffic features.
 The trained Random Forest model will classify each network flow.
 """)
 
-# -------------------------------
-# Upload CSV
-# -------------------------------
 uploaded_file = st.file_uploader(
     "Upload Network Traffic CSV",
     type=["csv"]
 )
 
-# -------------------------------
-# If file uploaded
-# -------------------------------
 if uploaded_file is not None:
 
     df = pd.read_csv(uploaded_file)
@@ -42,9 +34,7 @@ if uploaded_file is not None:
     st.write(f"Rows : {df.shape[0]}")
     st.write(f"Columns : {df.shape[1]}")
 
-    # -------------------------------
-    # Predict Button
-    # -------------------------------
+
     if st.button("Predict"):
 
         predictions = predict_attacks(df)
@@ -57,18 +47,14 @@ if uploaded_file is not None:
 
         st.dataframe(df)
 
-        # -------------------------------
-        # Summary
-        # -------------------------------
+
         st.subheader("Attack Summary")
 
         summary = df["Prediction"].value_counts()
 
         st.write(summary)
 
-        # -------------------------------
-        # Bar Chart
-        # -------------------------------
+
         st.subheader("Attack Distribution")
 
         fig, ax = plt.subplots(figsize=(7,4))
@@ -81,9 +67,7 @@ if uploaded_file is not None:
 
         st.pyplot(fig)
 
-        # -------------------------------
-        # Download Results
-        # -------------------------------
+
         csv = df.to_csv(index=False)
 
         st.download_button(
